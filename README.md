@@ -1,4 +1,5 @@
 # Breast Cancer Prediction using Naive Bayes
+Devs - Priyanshu Mahor(0901AD231049) and Sourabh Kumar Tripathi (0901AD231061)
 
 ## Overview
 
