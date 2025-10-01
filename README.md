@@ -46,11 +46,16 @@ The project follows a standard machine learning pipeline:
 
       - The `Bare_Nuclei` column is converted to an integer data type.
       - The target variable `Class` is mapped from numeric values (`2`, `4`) to descriptive labels (`Benign`, `Malignant`).
+      - Outliers are handled using the capping (or Winsorizing) method. For each feature, values falling outside 1.5 times the Interquartile Range (IQR) are replaced with the respective upper or lower bound. This technique mitigates the effect of extreme values without causing data loss.
 
 3.  **Exploratory Data Analysis (EDA)**:
 
-      - **Box plots** are generated to visualize the distribution of each feature against the target class. This revealed that most features, especially `Clump_Thickness`, `Uniformity_of_Cell_Size`, and `Bare_Nuclei`, have significantly higher median values for malignant cases.
-      - A **correlation heatmap** is created to identify relationships between features. Strong positive correlations were found, notably between `Uniformity of Cell Size` and `Uniformity of Cell Shape` (0.91), indicating potential multicollinearity.
+      - Box plots are used to visualize the distribution of features for Benign vs. Malignant cases on the capped data, showing that malignant tumors generally have higher feature values.
+      - <img width="1489" height="1490" alt="image" src="https://github.com/user-attachments/assets/38ac8712-cd05-4b3d-849f-038e82b837fd" />
+
+      - A correlation heatmap reveals strong positive correlations between features like `Uniformity of Cell Size` and `Uniformity of Cell Shape`, indicating multicollinearity.
+      - <img width="933" height="850" alt="image" src="https://github.com/user-attachments/assets/81e75a7f-eccc-4b4e-802c-cdc0db4276c4" />
+
 
 4.  **Feature Selection**:
 
@@ -62,7 +67,7 @@ The project follows a standard machine learning pipeline:
 
 5.  **Model Training**:
 
-      - The data is split into training (80%) and testing (20%) sets.
+      - The data is split into training (80%) and testing (20%) sets. Crucially, `stratify=Y` is used to ensure that the proportion of benign and malignant samples is the same in both the train and test sets.
       - A **Gaussian Naive Bayes** model is trained on the selected features.
 
 6.  **Model Evaluation**:
@@ -74,15 +79,15 @@ The project follows a standard machine learning pipeline:
 
 ## Results
 
-The Gaussian Naive Bayes classifier performed exceptionally well on the test set, demonstrating its effectiveness for this classification task.
+The Gaussian Naive Bayes classifier performed-
 
-  - **Accuracy Score**: **96.43%**
+  - **Accuracy Score**: **95.71%**
 
   - **Confusion Matrix**:
 
     ```
-    [[92  3]
-     [ 2 43]]
+    [[89  3]
+     [ 3 45]]
     ```
 
     This shows that out of 140 test samples, the model misclassified only 5 cases (3 false positives and 2 false negatives).
@@ -92,11 +97,11 @@ The Gaussian Naive Bayes classifier performed exceptionally well on the test set
     ```
                   precision    recall  f1-score   support
 
-          Benign       0.98      0.97      0.97        95
-       Malignant       0.93      0.96      0.95        45
+      Benign       0.97      0.97      0.97        92
+     Malignant       0.94      0.94      0.94        48
 
-        accuracy                           0.96       140
-       macro avg       0.96      0.96      0.96       140
+    accuracy                           0.96       140
+     macro avg       0.95      0.95      0.95       140
     weighted avg       0.96      0.96      0.96       140
     ```
 
@@ -104,9 +109,7 @@ The model shows high precision and recall for both classes, indicating a robust 
 
 ## Technologies Used
 
-  - **Python 3**
   - **Pandas** for data manipulation and analysis.
   - **Matplotlib & Seaborn** for data visualization.
   - **Scikit-learn** for model training and evaluation.
-  - **Jupyter Notebook** for code execution and presentation.
 
