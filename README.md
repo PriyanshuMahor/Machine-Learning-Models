@@ -91,7 +91,7 @@ The Gaussian Naive Bayes classifier performed-
      [ 3 45]]
     ```
 
-    This shows that out of 140 test samples, the model misclassified only 5 cases (3 false positives and 2 false negatives).
+    This shows that out of 140 test samples, the model misclassified only 6 cases (3 false positives and 3 false negatives).
 
   - **Classification Report**:
 
